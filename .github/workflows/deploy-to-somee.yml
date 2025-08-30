@@ -10,6 +10,7 @@ on:
 
 jobs:
   build-and-deploy:
+    if: ${{ vars.ENABLE_DEPLOY == 'true' }}
     runs-on: windows-latest
 
     steps:
