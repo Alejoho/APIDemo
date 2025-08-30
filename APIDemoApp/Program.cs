@@ -18,6 +18,13 @@ builder.Services.AddSingleton<IDataAccess, SqlDb>();
 builder.Services.AddSingleton<IFoodData, FoodData>();
 builder.Services.AddSingleton<IOrderData, OrderData>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllMine",
+    builder => builder
+        .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 
 var app = builder.Build();
 
@@ -28,6 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAllMine");
 
 app.UseAuthorization();
 
