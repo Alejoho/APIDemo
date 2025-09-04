@@ -1,3 +1,4 @@
+using APIDemoApp.Models;
 using DataLibrary.Data;
 using DataLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -58,11 +59,10 @@ public class OrderController : Controller
     [HttpPatch]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    // TODO: Create a model for this data and add data annotations to validate
-    public async Task<IActionResult> Update(int id, string newName)
+    public async Task<IActionResult> Update([FromBody] OrderUpdateModel model)
     {
-        await _orderData.UpdateOrderName(id, newName);
-        return Ok(id);
+        await _orderData.UpdateOrderName(model.Id, model.NewName);
+        return Ok(model.Id);
     }
 
     [HttpDelete]
